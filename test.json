@@ -1,0 +1,22 @@
+{
+    "success": true,
+    "count": 50,
+    "users": [
+        {
+            "id": 253,
+            "user_login": "reza1234",
+            "user_email": "Mohamadrezazare925@gmail.com",
+            "user_nicename": "reza1234",
+            "user_url": "",
+            "user_registered": "2025-09-09 18:53:00",
+            "user_status": 0,
+            "display_name": "reza1234",
+            "first_name": "",
+            "last_name": "",
+            "roles": [
+                "customer"
+            ]
+        }
+    ]
+}
+    
