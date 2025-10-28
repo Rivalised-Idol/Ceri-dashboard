@@ -1,9 +1,12 @@
-import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
 
-const authOptions = {
+
+import NextAuth, { NextAuthOptions, Session, User } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { JWT } from "next-auth/jwt";
+
+const authOptions: NextAuthOptions = {
   providers: [
-    Credentials({
+    CredentialsProvider({
       name: "WordPress",
       credentials: {
         username: { label: "Username", type: "text" },
@@ -26,13 +29,13 @@ const authOptions = {
             throw new Error(data?.message || "Invalid credentials");
           }
 
-          // Return user info for session storage
+          // ✅ Same logic as before — just typed properly
           return {
-            id: data.user_id,
+            id: data.user_id.toString(),
             name: data.user_display_name,
             email: data.user_email,
             token: data.token,
-          };
+          } as User & { token: string };
         } catch (error) {
           console.error("Login error:", error);
           return null;
@@ -41,15 +44,29 @@ const authOptions = {
     }),
   ],
 
-  session: { strategy: "jwt" as const},
+  session: { strategy: "jwt" },
 
   callbacks: {
-    async jwt({ token, user }: { token: any; user?: any}) {
-      if (user) token.accessToken = user.token;
+    async jwt({
+      token,
+      user,
+    }: {
+      token: JWT;
+      user?: User & { token?: string };
+    }): Promise<JWT> {
+      if (user?.token) token.accessToken = user.token;
       return token;
     },
-    async session({ session, token }: {session: any; token: any}) {
-      (session as any).accessToken = token.accessToken;
+
+    async session({
+      session,
+      token,
+    }: {
+      session: Session;
+      token: JWT & { accessToken?: string };
+    }): Promise<Session> {
+      (session as Session & { accessToken?: string }).accessToken =
+        token.accessToken;
       return session;
     },
   },
