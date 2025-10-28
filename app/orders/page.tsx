@@ -997,6 +997,8 @@
 //   );
 // }
 
+export const dynamic = "force-static";
+
 import { fetchOrders } from "@/lib/orders/fetchOrders";
 import { fetchProducts } from "@/lib/products/fetchProducts";
 import OrdersTable from "@/components/orders/OrdersTable";
