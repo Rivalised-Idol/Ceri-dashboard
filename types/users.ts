@@ -18,7 +18,7 @@ export interface UserMeta {
   registration_source: string;
 }
 
-export interface UserFields {
+export interface UserData {
   id: number;
   user_login: string;
   user_email: string;
@@ -73,7 +73,7 @@ export interface UserMetadata {
 export interface UsersApiResponse {
   success: boolean;
   count: number;
-  users: AdminUser[];
+  users: UserData[];
 }
 
 export interface UserMetadataResponse {

@@ -53,11 +53,10 @@ export default async function UserViewPage({ params }: UserViewPageProps) {
         <h1 className="text-2xl font-bold mb-4">
           User Details: {user.user_login}
         </h1>
-
         <div className="space-y-4">
           <div className="flex items-center space-x-4">
             <Image
-              src={user.avatar_url}
+              src={user.avatar_url || "public/avatar-default-svgrepo-com.svg"}
               alt="User avatar"
               width={128}
               height={128}
@@ -72,7 +71,6 @@ export default async function UserViewPage({ params }: UserViewPageProps) {
               </p>
             </div>
           </div>
-
           <div className="grid grid-cols-2 gap-4 mt-6">
             {/* From user.meta */}
             <InfoRow
@@ -120,7 +118,6 @@ export default async function UserViewPage({ params }: UserViewPageProps) {
               label="Consent IP Address"
               value={meta.consent_ip_address}
             />
-
             {/* From user.all_metadata (if you have these fields) */}
             <InfoRow
               label="Billing First Name"
