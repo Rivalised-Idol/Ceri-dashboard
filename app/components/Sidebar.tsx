@@ -13,6 +13,7 @@ import {
   Menu,
   Receipt,
   Cherry,
+  LogOut,
 } from "lucide-react"; // ✅ Icons based on your request
 
 const items = [
@@ -60,7 +61,11 @@ export default function Sidebar() {
               key={href}
               href={href}
               className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium
-                ${active ? "bg-blue-600 text-white" : "text-slate-200 hover:bg-slate-800 hover:text-white"}
+                ${
+                  active
+                    ? "bg-blue-600 text-white"
+                    : "text-slate-200 hover:bg-slate-800 hover:text-white"
+                }
               `}
             >
               <Icon size={20} />
@@ -72,14 +77,13 @@ export default function Sidebar() {
       {/* Logout Button */}
       <div className="absolute bottom-0 left-0 right-0 border-t border-slate-800 p-3">
         <button
-          onClick={() => signOut({ callbackUrl: '/login' })}
+          onClick={() => signOut({ callbackUrl: "/login" })}
           className="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium text-red-400 hover:text-red-300 hover:bg-slate-800 transition-colors"
         >
-          <Settings size={20} className="rotate-180" /> {/* optional icon */}
+          <LogOut size={20} className="rotate-180" /> {/* optional icon */}
           {!collapsed && <span>Logout</span>}
         </button>
       </div>
     </aside>
-    
   );
 }
