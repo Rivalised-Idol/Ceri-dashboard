@@ -56,7 +56,7 @@ export default async function UserViewPage({ params }: UserViewPageProps) {
         <div className="space-y-4">
           <div className="flex items-center space-x-4">
             <Image
-              src={user.avatar_url || "public/avatar-default-svgrepo-com.svg"}
+              src={user.avatar_url}
               alt="User avatar"
               width={128}
               height={128}

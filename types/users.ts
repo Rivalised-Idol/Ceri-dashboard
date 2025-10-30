@@ -108,3 +108,23 @@ export interface MembershipStatusResponse {
   message: string;
   data?: MembershipStatusData;
 }
+
+//pagination logic
+
+export interface UsersListPagination {
+  current_page: number;
+  per_page: number;
+  total_users: number;
+  total_pages: number;
+  has_more: boolean;
+  filtered_count: number;
+}
+
+export interface UsersListApiResponse {
+  success: boolean;
+  count: number;
+  users: UserData[];
+  pagination: UsersListPagination;
+  filters?: Record<string, unknown>;
+  summary?: Record<string, unknown>;
+}

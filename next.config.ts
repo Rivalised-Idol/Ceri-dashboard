@@ -5,13 +5,13 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "secure.gravatar.com",
+        hostname: "cerivpn.com", // optional: if your app uses images from your domain too
         port: "",
-        pathname: "/**",
+        pathname: "/wp-content/uploads/**",
       },
       {
         protocol: "https",
-        hostname: "cerivpn.com", // optional: if your app uses images from your domain too
+        hostname: "secure.gravatar.com",
         port: "",
         pathname: "/**",
       },
