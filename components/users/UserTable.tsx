@@ -147,6 +147,7 @@ export default function UsersTable({ initialUsers }: UsersTableProps) {
                   "Item #",
                   "ID",
                   "User Info",
+                  "Roles",
                   "Registered Date",
                   "Membership Status",
                   "Membership Type",
@@ -225,6 +226,9 @@ export default function UsersTable({ initialUsers }: UsersTableProps) {
                             {user.first_name || ""} {user.last_name || ""}
                           </span>
                         </div>
+                      </td>
+                      <td className="px-4 py-3 border-b border-slate-800">
+                        {user.roles}
                       </td>
                       <td className="px-4 py-3 border-b border-slate-800">
                         {new Date(user.user_registered).toLocaleString()}
