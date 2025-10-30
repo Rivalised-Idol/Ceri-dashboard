@@ -18,7 +18,7 @@ export interface UserMeta {
   registration_source: string;
 }
 
-export interface AdminUser {
+export interface UserFields {
   id: number;
   user_login: string;
   user_email: string;
@@ -70,19 +70,16 @@ export interface UserMetadata {
   post_count: string;
 }
 
-
 export interface UsersApiResponse {
   success: boolean;
   count: number;
   users: AdminUser[];
 }
 
-
 export interface UserMetadataResponse {
   success: boolean;
   user: UserMetadata;
 }
-
 
 export interface DeleteUserResponse {
   success: boolean;
@@ -91,7 +88,6 @@ export interface DeleteUserResponse {
     user_id: number | string;
   };
 }
-
 
 //updateMembershipStatus
 

@@ -3,10 +3,10 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { View, UserPen } from "lucide-react";
-import type { AdminUser } from "@/types/users";
+import type { UserData } from "@/types/users";
 
 interface UsersTableProps {
-  initialUsers: AdminUser[];
+  initialUsers: UserData[];
 }
 
 function Pill({
@@ -61,7 +61,11 @@ export default function UsersTable({ initialUsers }: UsersTableProps) {
         return true;
       })
       .sort((a, b) =>
-        sortBy === "id_asc" ? a.id - b.id : sortBy === "id_desc" ? b.id - a.id : 0
+        sortBy === "id_asc"
+          ? a.id - b.id
+          : sortBy === "id_desc"
+          ? b.id - a.id
+          : 0
       );
   }, [searchQuery, filterStatus, filterPlan, sortBy, initialUsers]);
 
@@ -162,7 +166,10 @@ export default function UsersTable({ initialUsers }: UsersTableProps) {
             <tbody>
               {filteredUsers.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center px-4 py-8 text-slate-400">
+                  <td
+                    colSpan={9}
+                    className="text-center px-4 py-8 text-slate-400"
+                  >
                     No users found.
                   </td>
                 </tr>
@@ -189,17 +196,25 @@ export default function UsersTable({ initialUsers }: UsersTableProps) {
                   return (
                     <tr
                       key={user.id}
-                      className={i % 2 === 0 ? "bg-slate-950" : "bg-slate-950/60"}
+                      className={
+                        i % 2 === 0 ? "bg-slate-950" : "bg-slate-950/60"
+                      }
                     >
-                      <td className="px-4 py-3 border-b border-slate-800">{i + 1}</td>
-                      <td className="px-4 py-3 border-b border-slate-800">{user.id}</td>
+                      <td className="px-4 py-3 border-b border-slate-800">
+                        {i + 1}
+                      </td>
+                      <td className="px-4 py-3 border-b border-slate-800">
+                        {user.id}
+                      </td>
                       <td className="px-4 py-3 border-b border-slate-800">
                         <div className="flex flex-col">
                           <span className="text-white">
                             <span className="font-normal text-slate-400 text-xs">
                               Username:{" "}
                             </span>
-                            <span className="font-semibold">{user.user_login}</span>
+                            <span className="font-semibold">
+                              {user.user_login}
+                            </span>
                           </span>
                           <span className="text-slate-400 text-xs">
                             <span className="font-semibold">Email: </span>
