@@ -1,7 +1,10 @@
 // lib/servers/createServer.ts
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import type { CreateServerPayload, CreateServerResponse } from "@/types/servers";
+import type {
+  CreateServerPayload,
+  CreateServerResponse,
+} from "@/types/servers";
 
 /**
  * Create a new server in the WordPress Admin API.

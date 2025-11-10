@@ -1,9 +1,16 @@
+//middleware.ts
 import { withAuth } from "next-auth/middleware";
 import { NextResponse } from "next/server";
 
 export default withAuth(
   function middleware(req) {
     const { pathname } = req.nextUrl;
+
+    // 🟠 Fix malformed URLs — missing slash or typo
+    if (!pathname.startsWith("/login") && pathname.includes("login")) {
+      const url = new URL("/login", req.url);
+      return NextResponse.redirect(url);
+    }
 
     // 🟢 Redirect logged-in users away from /login
     if (pathname === "/login" && req.nextauth.token) {
@@ -24,30 +31,9 @@ export default withAuth(
   }
 );
 
+// ✅ Protect all routes under the dashboard group
 export const config = {
   matcher: [
-    "/", // dashboard
-    "/login", // handle reverse redirect
-    "/users/:path*",
-    "/servers/:path*",
-    "/orders/:path*",
-    "/products/:path*",
-    "/reports/:path*",
-    "/settings/:path*",
+    "/(dashboard)/:path*", // secure all dashboard routes
   ],
 };
-
-
-
-
-// export const config = {
-//   matcher: [
-//     "/", // Protect the root route (dashboard home)
-//     "/users/:path*",
-//     "/servers/:path*",
-//     "/orders/:path*",
-//     "/products/:path*",
-//     "/reports/:path*",
-//     "/settings/:path*",
-//   ],
-// };

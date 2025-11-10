@@ -1,3 +1,5 @@
+//components\users\ManageUserForm.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -6,9 +8,9 @@ import type { UserMetadata } from "@/types/users";
 
 export default function ManageUserForm({ user }: { user: UserMetadata }) {
   const router = useRouter();
-  const [membershipStatus, setMembershipStatus] = useState<"active" | "inactive">(
-    user.meta.membership_status === "active" ? "active" : "inactive"
-  );
+  const [membershipStatus, setMembershipStatus] = useState<
+    "active" | "inactive"
+  >(user.meta.membership_status === "active" ? "active" : "inactive");
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
@@ -16,7 +18,7 @@ export default function ManageUserForm({ user }: { user: UserMetadata }) {
   async function handleSave() {
     setSaving(true);
     try {
-      const res = await fetch(`/api/users/${user.id}/membership-status`, {
+      const res = await fetch(`/api/users/${user.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ membership_status: membershipStatus }),
@@ -88,7 +90,9 @@ export default function ManageUserForm({ user }: { user: UserMetadata }) {
           <select
             value={membershipStatus}
             onChange={(e) =>
-              setMembershipStatus(e.target.value === "active" ? "active" : "inactive")
+              setMembershipStatus(
+                e.target.value === "active" ? "active" : "inactive"
+              )
             }
             className="w-full bg-slate-800 text-white px-3 py-2 rounded-md border border-slate-700 focus:ring-2 focus:ring-blue-500"
           >

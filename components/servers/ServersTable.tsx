@@ -2,9 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import CopyButton from "@/app/components/CopyButton";
+import CopyButton from "@/components/servers/CopyButton";
 import { Eye, Wrench, X } from "lucide-react";
-import { createServer } from "@/lib/servers/createServer";
+//import { createServer } from "@/lib/servers/createServer";
 import type { Server } from "@/types/servers";
 
 interface ServersTableProps {
@@ -41,11 +41,15 @@ export default function ServersTable({ initialServers }: ServersTableProps) {
   async function reloadServers() {
     setLoading(true);
     try {
-      const res = await fetch("/api/servers/list"); // optional proxy route if you make one
+      const res = await fetch("/api/servers/list"); // ✅ This is the correct bridge
       const data = await res.json();
-      setServers(data.servers);
+      if (data.success && data.servers) {
+        setServers(data.servers);
+      } else {
+        console.error("Failed to reload servers:", data.message);
+      }
     } catch (err) {
-      console.error("Failed to reload servers:", err);
+      console.error("Reload servers error:", err);
     } finally {
       setLoading(false);
     }
@@ -101,7 +105,14 @@ export default function ServersTable({ initialServers }: ServersTableProps) {
     setIsSubmitting(true);
     setApiMessage("");
     try {
-      const res = await createServer(newServer);
+      //const res = await createServer(newServer);
+      const response = await fetch("/api/servers/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newServer),
+      });
+      const res = await response.json();
+
       if (res.success) {
         setApiMessage("✅ Server created successfully!");
         setIsModalOpen(false);

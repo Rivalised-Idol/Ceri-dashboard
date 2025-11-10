@@ -1,4 +1,6 @@
-'use client';
+//components/products/ProductsTable.tsx
+
+"use client";
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
@@ -7,29 +9,35 @@ import type { Product } from "@/types/products";
 
 function Pill({
   children,
-  tone = 'default',
+  tone = "default",
 }: {
   children: React.ReactNode;
-  tone?: 'default' | 'green' | 'red' | 'blue' | 'yellow';
+  tone?: "default" | "green" | "red" | "blue" | "yellow";
 }) {
   const map: Record<string, string> = {
-    default: 'bg-slate-700/60 border-slate-600 text-white',
-    green: 'bg-emerald-900/60 border-emerald-700 text-emerald-50',
-    red: 'bg-rose-900/60 border-rose-700 text-rose-50',
-    blue: 'bg-blue-900/60 border-blue-700 text-blue-50',
-    yellow: 'bg-yellow-900/60 border-yellow-700 text-yellow-50',
+    default: "bg-slate-700/60 border-slate-600 text-white",
+    green: "bg-emerald-900/60 border-emerald-700 text-emerald-50",
+    red: "bg-rose-900/60 border-rose-700 text-rose-50",
+    blue: "bg-blue-900/60 border-blue-700 text-blue-50",
+    yellow: "bg-yellow-900/60 border-yellow-700 text-yellow-50",
   };
 
   return (
-    <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${map[tone]}`}>
+    <span
+      className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold ${map[tone]}`}
+    >
       {children}
     </span>
   );
 }
 
-export default function ProductsTable({ initialProducts }: { initialProducts: Product[] }) {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [stockFilter, setStockFilter] = useState('');
+export default function ProductsTable({
+  initialProducts,
+}: {
+  initialProducts: Product[];
+}) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [stockFilter, setStockFilter] = useState("");
 
   const filteredProducts = useMemo(() => {
     return initialProducts.filter((product) => {
@@ -46,8 +54,8 @@ export default function ProductsTable({ initialProducts }: { initialProducts: Pr
   }, [initialProducts, searchQuery, stockFilter]);
 
   const clearFilters = () => {
-    setSearchQuery('');
-    setStockFilter('');
+    setSearchQuery("");
+    setStockFilter("");
   };
 
   return (
@@ -84,7 +92,13 @@ export default function ProductsTable({ initialProducts }: { initialProducts: Pr
           <table className="w-full border-collapse text-sm min-w-[900px]">
             <thead>
               <tr className="bg-slate-900/70 text-slate-400">
-                {["Product ID", "Name", "Price (USD)", "Created Date", "Action"].map((h) => (
+                {[
+                  "Product ID",
+                  "Name",
+                  "Price (USD)",
+                  "Created Date",
+                  "Action",
+                ].map((h) => (
                   <th
                     key={h}
                     className="text-left font-medium px-4 py-3 border-b border-slate-800 sticky top-0 bg-slate-900/70 backdrop-blur-sm"
@@ -97,15 +111,25 @@ export default function ProductsTable({ initialProducts }: { initialProducts: Pr
             <tbody>
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="text-center px-4 py-8 text-slate-400">
+                  <td
+                    colSpan={5}
+                    className="text-center px-4 py-8 text-slate-400"
+                  >
                     No products found.
                   </td>
                 </tr>
               ) : (
                 filteredProducts.map((product, i) => (
-                  <tr key={product.product_id} className={i % 2 === 0 ? 'bg-slate-950' : 'bg-slate-950/60'}>
-                    <td className="px-4 py-3 border-b border-slate-800">{product.product_id}</td>
-                    <td className="px-4 py-3 border-b border-slate-800 text-white">{product.product_name}</td>
+                  <tr
+                    key={product.product_id}
+                    className={i % 2 === 0 ? "bg-slate-950" : "bg-slate-950/60"}
+                  >
+                    <td className="px-4 py-3 border-b border-slate-800">
+                      {product.product_id}
+                    </td>
+                    <td className="px-4 py-3 border-b border-slate-800 text-white">
+                      {product.product_name}
+                    </td>
                     <td className="px-4 py-3 border-b border-slate-800">
                       <Pill tone="green">{product.price.toFixed(2)}</Pill>
                     </td>
